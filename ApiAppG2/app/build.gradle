@@ -1,0 +1,75 @@
+plugins {
+    alias(libs.plugins.android.application)  // إضافة Plugin لتطبيق Android
+    alias(libs.plugins.kotlin.android)  // إضافة Plugin لـ Kotlin
+    id("kotlin-kapt")  // إضافة Plugin لـ Kotlin Annotation Processing
+}
+
+android {
+    namespace = "com.hanynemr.apiappg2"  // اسم المساحة (Namespace) الخاص بالتطبيق
+    compileSdk = 35  // تحديد إصدار الـ SDK الذي سيتم استخدامه
+
+    defaultConfig {
+        applicationId = "com.hanynemr.apiappg2"  // معرف التطبيق
+        minSdk = 23  // الحد الأدنى من الـ SDK الذي يدعمه التطبيق
+        targetSdk = 35  // إصدار الـ SDK المستهدف
+        versionCode = 1  // الرقم الفريد لإصدار التطبيق
+        versionName = "1.0"  // اسم الإصدار
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"  // إعدادات اختبار التطبيق
+    }
+
+    buildTypes {
+        getByName("release") {  // إعدادات الإصدار
+            minifyEnabled = false  // تعطيل تصغير الكود (Proguard)
+            proguardFiles(
+                    getDefaultProguardFile("proguard-android-optimize.txt"),
+                    "proguard-rules.pro"
+            )
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_11  // تحديد إصدار جافا المستخدم
+        targetCompatibility = JavaVersion.VERSION_11  // تحديد إصدار جافا المستهدف
+    }
+
+    kotlinOptions {
+        jvmTarget = "11"  // تحديد الإصدار المستهدف لـ Kotlin
+    }
+    buildFeatures {
+        viewBinding true
+    }
+}
+
+dependencies {
+    // مكتبة Volley
+    implementation("com.android.volley:volley:1.2.1")
+    // مكتبة Gson لتحويل JSON
+    implementation("com.google.code.gson:gson:2.12.1")
+
+    // مكتبة Retrofit للتعامل مع API
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    // مكتبة OkHttp لتحسين الاتصال بالشبكة
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+
+    // مكتبة دعم الإشعارات AndroidX
+    implementation("androidx.core:core:1.9.0")
+
+    // مكتبات AndroidX
+    implementation(libs.androidx.core.ktx)  // مكتبة core-ktx الخاصة بـ AndroidX
+    implementation(libs.androidx.appcompat)  // مكتبة AppCompat لتوفير توافق عبر الأجهزة
+    implementation(libs.material)  // مكتبة واجهات المستخدم Material Design
+    implementation(libs.androidx.activity)  // مكتبة Activity الخاصة بـ AndroidX
+    implementation(libs.androidx.constraintlayout)  // مكتبة ConstraintLayout
+    implementation "androidx.core:core-ktx:1.12.0"
+
+    // مكتبات الاختبار
+    testImplementation(libs.junit)  // مكتبة JUnit لاختبارات الوحدات
+    androidTestImplementation(libs.androidx.junit)  // مكتبة JUnit لاختبارات Android
+    androidTestImplementation(libs.androidx.espresso.core)  // مكتبة Espresso لاختبارات واجهات المستخدم
+
+    // مكتبة Glide
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    kapt("com.github.bumptech.glide:compiler:4.15.1")
+}
